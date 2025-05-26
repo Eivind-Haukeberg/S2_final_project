@@ -1,0 +1,33 @@
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #040b22;
+  color: #ffdcbd;
+}
+
+.navigation-bar__logo {
+  height: 40px;
+  width: auto;
+}
+
+.logo-image,
+.logo-icon {
+  height: 40px;
+  width: auto;
+}
+
+.navigation-bar__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.navigation-bar__link {
+  color: #ffdcbd;
+  text-decoration: none;
+}
+
+.navigation-bar__link:hover {
+  text-decoration: underline;
+}
