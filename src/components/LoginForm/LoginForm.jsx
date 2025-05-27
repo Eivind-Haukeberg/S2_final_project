@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { auth } from '../services/firebaseConfig';
+import { auth, db } from '../../services/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 function LoginForm() {
