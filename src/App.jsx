@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
+import './styles/reset.css';
 
 function App() {
   return (

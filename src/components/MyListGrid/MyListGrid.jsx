@@ -3,24 +3,24 @@ import { auth, db } from '../../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 
 function MyListGrid() {
-  const [list, setList] = useState;
+  const [list, setList] = useState([]);
 
   useEffect(() => {
     const fetchList = async () => {
       const user = auth.currentUser;
-      if (user) return;
+      if (!user) return;
 
       const userRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
         const data = userSnap.data();
-        setList(data.myList);
+        setList(data.myList || []);
       }
     };
 
     fetchList();
-  });
+  }, []);
 
   return (
     <section className='my-list-grid'>
