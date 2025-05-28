@@ -1,0 +1,50 @@
+.admin-collection-form {
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-collection-form__heading {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.admin-collection-form__input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.admin-collection-form__media-item-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-collection-form__add-button,
+.admin-collection-form__submit-button {
+  background-color: #1f1f1f;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-collection-form__add-button:hover,
+.admin-collection-form__submit-button:hover {
+  background-color: #333;
+}
+
+.admin-collection-form__message-error {
+  color: red;
+}
+
+.admin-collection-form__message-success {
+  color: green;
+}
