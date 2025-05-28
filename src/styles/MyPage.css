@@ -1,0 +1,35 @@
+.my-list-grid {
+  padding: 2rem;
+}
+
+.my-list-grid__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.my-list-grid__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.my-list-grid__card {
+  background: #1e1e1e;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.my-list-grid__image {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.my-list-grid__name {
+  margin-top: 0.5rem;
+  color: white;
+}
+
+.my-list-grid__empty {
+  color: gray;
+}
