@@ -1,6 +1,27 @@
 import './CollectionRow.css';
+import { useState } from 'react';
+import { addToUserList } from '../../utilities/addToMyList';
 
 function CollectionRow({ title, items }) {
+  const [feedback, setFeedback] = useState({});
+
+  const handleAdd = async (item) => {
+    try {
+      await addToUserList(item);
+      setFeedback((prev) => ({ ...prev, [item.title]: '✅ Added' }));
+
+      setTimeout(() => {
+        setFeedback((prev) => {
+          const copy = { ...prev };
+          delete copy[item.title];
+          return copy;
+        });
+      }, 2000);
+    } catch (error) {
+      setFeedback((prev) => ({ ...prev, [item.title]: error.message }));
+    }
+  };
+
   return (
     <section className='collection-row'>
       <h2 className='collection-row__title'>{title}</h2>
@@ -13,6 +34,18 @@ function CollectionRow({ title, items }) {
               className='collection-row__media-image'
             />
             <p className='collection-row__media-title'>{item.title}</p>
+
+            <button
+              className='collection-row__add-button'
+              onClick={() => handleAdd(item)}>
+              Legg til i min liste
+            </button>
+
+            {feedback[item.title] && (
+              <p className='collection-row__feedback-message'>
+                {feedback[item.title]}
+              </p>
+            )}
           </div>
         ))}
       </div>
