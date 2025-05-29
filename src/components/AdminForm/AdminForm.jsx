@@ -21,24 +21,11 @@ function AdminCollectionForm() {
     }
   };
 
-  const handleMediaItemChange = (index, field, value) => {
-    const updatedItems = [...mediaItems];
-    updatedItems[index][field] = value;
-    setMediaItems(updatedItems);
-  };
-
-  const handleAddMediaItem = () => {
-    setMediaItems([...mediaItems, { title: '', image: '' }]);
-  };
-
   const handleSubmitCollection = async (e) => {
     e.preventDefault();
 
-    if (
-      !collectionTitle ||
-      mediaItems.some((item) => !item.title || !item.image)
-    ) {
-      setMessageError('All fields must be filled out');
+    if (!collectionTitle || mediaItems.length === 0) {
+      setMessageError('Please add at least one movie or series');
       return;
     }
 
@@ -109,29 +96,6 @@ function AdminCollectionForm() {
           </li>
         ))}
       </ul>
-
-      {mediaItems.map((item, index) => (
-        <div key={index} className='admin-collection-form__media-item-group'>
-          <input
-            type='text'
-            placeholder='Movie or series title'
-            className='admin-collection-form__input'
-            value={item.title}
-            onChange={(e) =>
-              handleMediaItemChange(index, 'title', e.target.value)
-            }
-          />
-          <input
-            type='text'
-            placeholder='Image URL'
-            className='admin-collection-form__input'
-            value={item.image}
-            onChange={(e) =>
-              handleMediaItemChange(index, 'image', e.target.value)
-            }
-          />
-        </div>
-      ))}
 
       <button type='submit' className='admin-collection-form__submit-button'>
         Save Collection
