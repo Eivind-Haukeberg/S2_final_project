@@ -24,6 +24,10 @@ function RegisterForm() {
       setError('All fields are required');
       return;
     }
+    if (form.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
