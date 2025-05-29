@@ -28,12 +28,17 @@ function CollectionRow({ title, items }) {
       <div className='collection-row__media-scroll'>
         {items.map((item, index) => (
           <div className='collection-row__media-card' key={index}>
-            <img
-              src={item.image}
-              alt={item.title}
-              className='collection-row__media-image'
-            />
-            <p className='collection-row__media-title'>{item.title}</p>
+            <a
+              href={`https://www.themoviedb.org/${item.type}/${item.id}`}
+              target='_blank'
+              className='collection-row__media-link'>
+              <img
+                src={item.image}
+                alt={item.title}
+                className='collection-row__media-image'
+              />
+              <p className='collection-row__media-title'>{item.title}</p>
+            </a>
 
             <button
               className='collection-row__add-button'

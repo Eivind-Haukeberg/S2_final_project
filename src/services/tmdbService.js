@@ -9,18 +9,15 @@ const fetchFromTMDB = async (endpoint, queryParams = '') => {
   return response.json();
 };
 
-export const searchMovies = async (query) => {
-  return fetchFromTMDB('/search/movie', `query=${encodeURIComponent(query)}`);
-};
-
-export const searchSeries = async (query) => {
-  return fetchFromTMDB('/search/tv', `query=${encodeURIComponent(query)}`);
-};
-
 export const getPopularMovies = async () => {
   return fetchFromTMDB('/movie/popular');
 };
 
 export const getPopularSeries = async () => {
   return fetchFromTMDB('/tv/popular');
+};
+
+export const searchMedia = async (query, type = 'movie') => {
+  const endpoint = type === 'tv' ? '/search/tv' : '/search/movie';
+  return fetchFromTMDB(endpoint, `query=${encodeURIComponent(query)}`);
 };

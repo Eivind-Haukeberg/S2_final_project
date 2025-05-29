@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import '../../components/AdminForm/AdminForm.css';
-import { searchMovies } from '../../services/tmdbService';
+import { searchMedia } from '../../services/tmdbService';
 
 function AdminCollectionForm() {
   const [collectionTitle, setCollectionTitle] = useState('');
@@ -11,10 +11,11 @@ function AdminCollectionForm() {
   const [messageError, setMessageError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchType, setSearchType] = useState('movie');
 
   const handleSearchTMDB = async () => {
     try {
-      const data = await searchMovies(searchQuery);
+      const data = await searchMedia(searchQuery, searchType);
       setSearchResults(data.results);
     } catch (error) {
       console.error('TMDB search failed:', error);
@@ -56,13 +57,20 @@ function AdminCollectionForm() {
       />
 
       <h3 className='admin-form__section-heading'>
-        Søk etter filmer eller serier fra TMDB
+        Search for movies and series through TMDB
       </h3>
 
       <div className='admin-form__tmdb-search'>
+        <select
+          className='admin-form__select'
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}>
+          <option value='movie'>Movie</option>
+          <option value='tv'>TV Series</option>
+        </select>
         <input
           type='text'
-          placeholder='Skriv filmnavn...'
+          placeholder='Search for title...'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className='admin-form__input'
@@ -71,27 +79,29 @@ function AdminCollectionForm() {
           type='button'
           onClick={handleSearchTMDB}
           className='admin-form__search-button'>
-          Søk
+          Search
         </button>
       </div>
 
       <ul className='admin-form__search-results'>
-        {searchResults.map((movie) => (
-          <li key={movie.id} className='admin-form__search-result'>
-            {movie.title}
+        {searchResults.map((media) => (
+          <li key={media.id} className='admin-form__search-result'>
+            {media.title || media.name}
             <button
               type='button'
               onClick={() => {
                 setMediaItems([
                   ...mediaItems,
                   {
-                    title: movie.title,
-                    image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                    id: media.id,
+                    title: media.title || media.name,
+                    image: `https://image.tmdb.org/t/p/w500${media.poster_path}`,
+                    type: searchType,
                   },
                 ]);
               }}
               className='admin-form__add-from-search-button'>
-              Legg til
+              Add
             </button>
           </li>
         ))}
