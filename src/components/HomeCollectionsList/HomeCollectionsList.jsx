@@ -4,20 +4,20 @@ import { db } from '../../services/firebaseConfig';
 import CollectionRow from '../CollectionRow/CollectionRow';
 
 function HomeCollectionsList() {
-  const [collections, setCollections] = useState();
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
+  const [collections, setCollections] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCollections = () => {
+    const fetchCollections = async () => {
       try {
-        const snapshot = getDocs(collection('collections'));
+        const snapshot = await getDocs(collection(db, 'collections'));
         const fetched = snapshot.docs.map((doc) => doc.data());
         setCollections(fetched);
       } catch (err) {
         setError('Could not fetch collections: ' + err.message);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     };
 
@@ -32,7 +32,7 @@ function HomeCollectionsList() {
 
   return (
     <div className='home-collections-list'>
-      {collections.map((index) => (
+      {collections.map((col, index) => (
         <CollectionRow key={index} title={col.title} items={col.items} />
       ))}
     </div>
