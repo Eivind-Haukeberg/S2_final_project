@@ -4,25 +4,28 @@ import { collection, addDoc } from 'firebase/firestore';
 import '../../components/AdminForm/AdminForm.css';
 
 function AdminCollectionForm() {
-  const [collectionTitle, setCollectionTitle] = useState();
+  const [collectionTitle, setCollectionTitle] = useState('');
   const [mediaItems, setMediaItems] = useState([{ title: '', image: '' }]);
-  const [messageSuccess, setMessageSuccess] = useState();
-  const [messageError, setMessageError] = useState();
+  const [messageSuccess, setMessageSuccess] = useState(null);
+  const [messageError, setMessageError] = useState(null);
 
-  const handleMediaItemChange = (index, value) => {
-    const updatedItems = [mediaItems];
-    updatedItems[index] = value;
-    setMediaItems();
+  const handleMediaItemChange = (index, field, value) => {
+    const updatedItems = [...mediaItems];
+    updatedItems[index][field] = value;
+    setMediaItems(updatedItems);
   };
 
-  const handleAddMediaItem = (mediaItems) => {
-    setMediaItems([mediaItems, { title: '', image: '' }]);
+  const handleAddMediaItem = () => {
+    setMediaItems([...mediaItems, { title: '', image: '' }]);
   };
 
   const handleSubmitCollection = async (e) => {
     e.preventDefault();
 
-    if (!collectionTitle || mediaItems.some(() => !item.title || !item.image)) {
+    if (
+      !collectionTitle ||
+      mediaItems.some((item) => !item.title || !item.image)
+    ) {
       setMessageError('All fields must be filled out');
       return;
     }
@@ -35,7 +38,7 @@ function AdminCollectionForm() {
       setMessageSuccess('Collection saved successfully!');
       setCollectionTitle('');
       setMediaItems([{ title: '', image: '' }]);
-      setMessageError();
+      setMessageError(null);
     } catch (error) {
       setMessageError('Failed to save collection: ' + error.message);
     }
