@@ -2,12 +2,24 @@ import { useState } from 'react';
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import '../../components/AdminForm/AdminForm.css';
+import { searchMovies } from '../../services/tmdbService';
 
 function AdminCollectionForm() {
   const [collectionTitle, setCollectionTitle] = useState('');
-  const [mediaItems, setMediaItems] = useState([{ title: '', image: '' }]);
+  const [mediaItems, setMediaItems] = useState([]);
   const [messageSuccess, setMessageSuccess] = useState(null);
   const [messageError, setMessageError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSearchTMDB = async () => {
+    try {
+      const data = await searchMovies(searchQuery);
+      setSearchResults(data.results);
+    } catch (error) {
+      console.error('TMDB search failed:', error);
+    }
+  };
 
   const handleMediaItemChange = (index, field, value) => {
     const updatedItems = [...mediaItems];
@@ -56,6 +68,48 @@ function AdminCollectionForm() {
         onChange={(e) => setCollectionTitle(e.target.value)}
       />
 
+      <h3 className='admin-form__section-heading'>
+        Søk etter filmer eller serier fra TMDB
+      </h3>
+
+      <div className='admin-form__tmdb-search'>
+        <input
+          type='text'
+          placeholder='Skriv filmnavn...'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className='admin-form__input'
+        />
+        <button
+          type='button'
+          onClick={handleSearchTMDB}
+          className='admin-form__search-button'>
+          Søk
+        </button>
+      </div>
+
+      <ul className='admin-form__search-results'>
+        {searchResults.map((movie) => (
+          <li key={movie.id} className='admin-form__search-result'>
+            {movie.title}
+            <button
+              type='button'
+              onClick={() => {
+                setMediaItems([
+                  ...mediaItems,
+                  {
+                    title: movie.title,
+                    image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+                  },
+                ]);
+              }}
+              className='admin-form__add-from-search-button'>
+              Legg til
+            </button>
+          </li>
+        ))}
+      </ul>
+
       {mediaItems.map((item, index) => (
         <div key={index} className='admin-collection-form__media-item-group'>
           <input
@@ -78,13 +132,6 @@ function AdminCollectionForm() {
           />
         </div>
       ))}
-
-      <button
-        type='button'
-        className='admin-collection-form__add-button'
-        onClick={handleAddMediaItem}>
-        + Add Media Item
-      </button>
 
       <button type='submit' className='admin-collection-form__submit-button'>
         Save Collection
