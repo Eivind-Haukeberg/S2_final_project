@@ -1,5 +1,6 @@
 import LoginForm from '../components/LoginForm/LoginForm';
 import RegisterForm from '../components/RegisterForm/RegisterForm';
+import HomeCollectionsList from '../components/HomeCollectionsList/HomeCollectionsList';
 
 function HomePage() {
   return (
@@ -7,6 +8,7 @@ function HomePage() {
       <h1>Welcome to OneApp</h1>
       <LoginForm />
       <RegisterForm />
+      <HomeCollectionsList />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import '../styles/CollectionRow.css';
+import './CollectionRow.css';
 
 function CollectionRow({ title, items }) {
   return (
