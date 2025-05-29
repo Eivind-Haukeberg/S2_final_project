@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { auth, db } from '../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import MyListGrid from '../components/MyListGrid/MyListGrid';
-import '../styles/MyPage.css';
+import '../components/MyListGrid/MyListGrid.css';
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState(null);

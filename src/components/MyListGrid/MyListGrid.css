@@ -1,44 +1,35 @@
-import { useEffect, useState } from "react";
-import { auth, db } from '../../services/firebaseConfig';
-import { doc, getDoc } from "firebase/firestore";
-
-function MyListGrid() {
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    const fetchList = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
-
-      const userRef = doc(db, "users", user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const data = userSnap.data();
-        setList(data.myList || []);
-      }
-    };
-
-    fetchList();
-  }, []);
-
-  return (
-    <section className="my-list-grid">
-      <h3 className="my-list-grid__title">My List</h3>
-      <div className="my-list-grid__items">
-        {list.length > 0 ? (
-          list.map((item, index) => (
-            <div key={index} className="my-list-grid__card">
-              <img src={item.image} alt={item.title} className="my-list-grid__image" />
-              <p className="my-list-grid__name">{item.title}</p>
-            </div>
-          ))
-        ) : (
-          <p className="my-list-grid__empty">No movies or series in your list yet.</p>
-        )}
-      </div>
-    </section>
-  );
+.my-list-grid {
+  padding: 2rem;
 }
 
-export default MyListGrid;
+.my-list-grid__title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.my-list-grid__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.my-list-grid__card {
+  background: #1e1e1e;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.my-list-grid__image {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.my-list-grid__name {
+  margin-top: 0.5rem;
+  color: white;
+}
+
+.my-list-grid__empty {
+  color: gray;
+}
