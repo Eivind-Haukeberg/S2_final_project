@@ -1,9 +1,19 @@
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import { removeFromUserList } from '../../utilities/removeFromMyList';
 
 function MyListGrid() {
   const [list, setList] = useState([]);
+
+  const handleRemove = async (titleToRemove) => {
+    try {
+      const updated = await removeFromUserList(titleToRemove);
+      setList(updated);
+    } catch (error) {
+      console.error('Error removing item:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchList = async () => {
@@ -35,6 +45,11 @@ function MyListGrid() {
                 className='my-list-grid__image'
               />
               <p className='my-list-grid__name'>{item.title}</p>
+              <button
+                className='my-list-grid__remove-button'
+                onClick={() => handleRemove(item.title)}>
+                Remove
+              </button>
             </div>
           ))
         ) : (

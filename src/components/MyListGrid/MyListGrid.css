@@ -33,3 +33,17 @@
 .my-list-grid__empty {
   color: gray;
 }
+
+.my-list-grid__remove-button {
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  background-color: #bb2222;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.my-list-grid__remove-button:hover {
+  background-color: #dd4444;
+}
