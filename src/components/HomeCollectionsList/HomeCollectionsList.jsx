@@ -12,7 +12,10 @@ function HomeCollectionsList() {
     const fetchCollections = async () => {
       try {
         const snapshot = await getDocs(collection(db, 'collections'));
-        const fetched = snapshot.docs.map((doc) => doc.data());
+        const fetched = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setCollections(fetched);
       } catch (err) {
         setError('Could not fetch collections: ' + err.message);
@@ -32,9 +35,12 @@ function HomeCollectionsList() {
 
   return (
     <div className='home-collections-list'>
-      {collections.map((col, index) => (
-        <CollectionRow key={index} title={col.title} items={col.items} />
-      ))}
+      {collections
+        .slice()
+        .sort((a, b) => (a.rowOrder || 999) - (b.rowOrder || 999))
+        .map((col) => (
+          <CollectionRow key={col.id} title={col.title} items={col.items} />
+        ))}
     </div>
   );
 }
