@@ -3,6 +3,7 @@ import { auth, db } from '../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import MyListGrid from '../components/MyListGrid/MyListGrid';
 import '../components/MyListGrid/MyListGrid.css';
+import { signOut } from 'firebase/auth';
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState(null);
@@ -21,6 +22,14 @@ function MyPage() {
     fetchUser();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
+
   return (
     <div className='my-page'>
       <h2 className='my-page__title'>My Information</h2>
@@ -36,6 +45,9 @@ function MyPage() {
             <p>
               <strong>Country:</strong> {userInfo.country}
             </p>
+            <button className='my-page__logout-button' onClick={handleLogout}>
+              Log out
+            </button>
           </div>
           <MyListGrid />
         </>
