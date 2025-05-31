@@ -8,7 +8,7 @@ function CollectionRow({ title, items }) {
   const handleAdd = async (item) => {
     try {
       await addToUserList(item);
-      setFeedback((prev) => ({ ...prev, [item.title]: '✅ Added' }));
+      setFeedback((prev) => ({ ...prev, [item.title]: 'Added to My List' }));
 
       setTimeout(() => {
         setFeedback((prev) => {
@@ -43,7 +43,7 @@ function CollectionRow({ title, items }) {
             <button
               className='collection-row__add-button'
               onClick={() => handleAdd(item)}>
-              Legg til i min liste
+              Add to My List
             </button>
 
             {feedback[item.title] && (

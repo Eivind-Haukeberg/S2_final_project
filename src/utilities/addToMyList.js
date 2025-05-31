@@ -14,7 +14,7 @@ export const addToUserList = async (newItem) => {
     const currentList = userData.myList || [];
 
     const exists = currentList.some((item) => item.title === newItem.title);
-    if (exists) throw new Error('Item already in list');
+    if (exists) throw new Error('Item already in My List');
 
     const updatedList = [...currentList, newItem];
     await updateDoc(userRef, { myList: updatedList });
