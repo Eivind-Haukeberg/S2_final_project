@@ -1,4 +1,4 @@
-import './CollectionRow.css';
+import styles from './CollectionRow.module.css';
 import { useState } from 'react';
 import { addToUserList } from '../../utilities/addToMyList';
 
@@ -23,31 +23,31 @@ function CollectionRow({ title, items }) {
   };
 
   return (
-    <section className='collection-row'>
-      <h2 className='collection-row__title'>{title}</h2>
-      <div className='collection-row__media-scroll'>
+    <section className={styles['collection-row']}>
+      <h2 className={styles['collection-row__title']}>{title}</h2>
+      <div className={styles['collection-row__media-scroll']}>
         {items.map((item, index) => (
-          <div className='collection-row__media-card' key={index}>
+          <div className={styles['collection-row__media-card']} key={index}>
             <a
               href={`https://www.themoviedb.org/${item.type}/${item.id}`}
               target='_blank'
-              className='collection-row__media-link'>
+              rel='noopener noreferrer'
+              className={styles['collection-row__link']}>
               <img
                 src={item.image}
                 alt={item.title}
-                className='collection-row__media-image'
+                className={styles['collection-row__image']}
               />
-              <p className='collection-row__media-title'>{item.title}</p>
             </a>
 
             <button
-              className='collection-row__add-button'
+              className={styles['collection-row__button']}
               onClick={() => handleAdd(item)}>
               Add to My List
             </button>
 
             {feedback[item.title] && (
-              <p className='collection-row__feedback-message'>
+              <p className={styles['collection-row__feedback']}>
                 {feedback[item.title]}
               </p>
             )}

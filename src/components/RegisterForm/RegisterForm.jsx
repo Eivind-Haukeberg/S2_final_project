@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
+import styles from './RegisterForm.module.css';
 
 function RegisterForm() {
   const [form, setForm] = useState({
@@ -36,53 +37,68 @@ function RegisterForm() {
         form.password
       );
       const user = userCredential.user;
-
       await setDoc(doc(db, 'users', user.uid), {
         name: form.name,
         email: form.email,
         country: form.country,
+        myList: [],
       });
 
-      setSuccess('User registered!');
+      setSuccess('Registration successful!');
       setError(null);
+      setForm({ name: '', email: '', password: '', country: '' });
     } catch (err) {
       setError('Registration failed: ' + err.message);
     }
   };
 
   return (
-    <form className='register-form' onSubmit={handleSubmit}>
-      <h2 className='register-form__title'>Register</h2>
+    <form className={styles['register-form']} onSubmit={handleSubmit}>
+      <h2 className={styles['register-form__title']}>Register</h2>
 
       <input
         name='name'
         type='text'
-        placeholder='Full name'
+        placeholder='Name'
+        value={form.name}
         onChange={handleInput}
+        className={styles['register-form__input']}
       />
       <input
         name='email'
         type='email'
         placeholder='Email'
+        value={form.email}
         onChange={handleInput}
+        className={styles['register-form__input']}
       />
       <input
         name='password'
         type='password'
         placeholder='Password'
+        value={form.password}
         onChange={handleInput}
+        className={styles['register-form__input']}
       />
       <input
         name='country'
         type='text'
         placeholder='Country'
+        value={form.country}
         onChange={handleInput}
+        className={styles['register-form__input']}
       />
 
-      <button type='submit'>Sign Up</button>
+      <button type='submit' className={styles['register-form__submit-button']}>
+        Register
+      </button>
 
-      {error && <p className='register-form__error'>{error}</p>}
-      {success && <p className='register-form__success'>{success}</p>}
+      {error && (
+        <p className={styles['register-form__error-message']}>{error}</p>
+      )}
+      {success && (
+        <p className={styles['register-form__success-message']}>{success}</p>
+      )}
     </form>
   );
 }

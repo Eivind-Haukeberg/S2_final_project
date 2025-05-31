@@ -7,7 +7,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
-import './AdminCollectionList.css';
+import styles from './AdminCollectionList.module.css';
 
 function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
   const [collections, setCollections] = useState([]);
@@ -39,53 +39,65 @@ function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
 
   useEffect(() => {
     fetchCollections();
-  }, [refreshTrigger]); // ✅ Refresh list when this value changes
+  }, [refreshTrigger]);
 
   return (
-    <div className='admin-collection-list'>
-      <h2 className='admin-collection-list__heading'>Existing Collections</h2>
-      <table className='admin-collection-list__table'>
+    <div className={styles['admin-collection-list']}>
+      <h2 className={styles['admin-collection-list__heading']}>
+        Existing Collections
+      </h2>
+      <table className={styles['admin-collection-list__table']}>
         <thead>
           <tr>
-            <th className='admin-collection-list__table-header'>Row Order</th>
-            <th className='admin-collection-list__table-header'>Title</th>
-            <th className='admin-collection-list__table-header'>
+            <th className={styles['admin-collection-list__table-header']}>
+              Row Order
+            </th>
+            <th className={styles['admin-collection-list__table-header']}>
+              Title
+            </th>
+            <th className={styles['admin-collection-list__table-header']}>
               Number of Titles
             </th>
-            <th className='admin-collection-list__table-header'>
+            <th className={styles['admin-collection-list__table-header']}>
               Poster Orientation
             </th>
-            <th className='admin-collection-list__table-header'>Actions</th>
+            <th className={styles['admin-collection-list__table-header']}>
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {collections.map((col) => (
-            <tr key={col.id} className='admin-collection-list__table-row'>
-              <td className='admin-collection-list__table-cell'>
+            <tr
+              key={col.id}
+              className={styles['admin-collection-list__table-row']}>
+              <td className={styles['admin-collection-list__table-cell']}>
                 <input
                   type='number'
                   min='1'
                   value={col.rowOrder || ''}
                   onChange={(e) => handleRowOrderChange(e.target.value, col.id)}
-                  className='admin-collection-list__row-order-input'
+                  className={styles['admin-collection-list__row-order-input']}
                 />
               </td>
-              <td className='admin-collection-list__table-cell'>{col.title}</td>
-              <td className='admin-collection-list__table-cell'>
+              <td className={styles['admin-collection-list__table-cell']}>
+                {col.title}
+              </td>
+              <td className={styles['admin-collection-list__table-cell']}>
                 {col.items.length}
               </td>
-              <td className='admin-collection-list__table-cell'>
+              <td className={styles['admin-collection-list__table-cell']}>
                 {col.posterOrientation || 'Not set'}
               </td>
-              <td className='admin-collection-list__table-cell'>
+              <td className={styles['admin-collection-list__table-cell']}>
                 <button
-                  className='admin-collection-list__button admin-collection-list__button--edit'
+                  className={`${styles['admin-collection-list__button']} ${styles['admin-collection-list__button--edit']}`}
                   onClick={() => setSelectedCollection(col)}>
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(col.id)}
-                  className='admin-collection-list__button admin-collection-list__button--delete'>
+                  className={`${styles['admin-collection-list__button']} ${styles['admin-collection-list__button--delete']}`}>
                   Delete
                 </button>
               </td>

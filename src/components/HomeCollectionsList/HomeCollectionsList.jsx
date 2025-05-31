@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
 import CollectionRow from '../CollectionRow/CollectionRow';
+import styles from './HomeCollectionsList.module.css';
 
 function HomeCollectionsList() {
   const [collections, setCollections] = useState([]);
@@ -29,17 +30,19 @@ function HomeCollectionsList() {
 
   if (loading)
     return (
-      <p className='home-collections-list__loading'>Loading collections...</p>
+      <p className={styles['home-collections-list__loading']}>
+        Loading collections...
+      </p>
     );
-  if (error) return <p className='home-collections-list__error'>{error}</p>;
+  if (error)
+    return <p className={styles['home-collections-list__error']}>{error}</p>;
 
   return (
-    <div className='home-collections-list'>
+    <div className={styles['home-collections-list']}>
       {collections
-        .slice()
-        .sort((a, b) => (a.rowOrder || 999) - (b.rowOrder || 999))
-        .map((col) => (
-          <CollectionRow key={col.id} title={col.title} items={col.items} />
+        .sort((a, b) => (a.rowOrder || 0) - (b.rowOrder || 0))
+        .map((col, index) => (
+          <CollectionRow key={index} title={col.title} items={col.items} />
         ))}
     </div>
   );

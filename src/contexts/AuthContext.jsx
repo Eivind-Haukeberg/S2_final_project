@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
-    return () => unsubscribe(); // clean up listener
+    return () => unsubscribe(); // Clean up listener
   }, []);
 
   return (

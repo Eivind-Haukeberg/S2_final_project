@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import { removeFromUserList } from '../../utilities/removeFromMyList';
+import styles from './MyListGrid.module.css';
 
 function MyListGrid() {
   const [list, setList] = useState([]);
@@ -33,30 +34,24 @@ function MyListGrid() {
   }, []);
 
   return (
-    <section className='my-list-grid'>
-      <h3 className='my-list-grid__title'>My List</h3>
-      <div className='my-list-grid__items'>
-        {list.length > 0 ? (
-          list.map((item, index) => (
-            <div key={index} className='my-list-grid__card'>
-              <img
-                src={item.image}
-                alt={item.title}
-                className='my-list-grid__image'
-              />
-              <p className='my-list-grid__name'>{item.title}</p>
-              <button
-                className='my-list-grid__remove-button'
-                onClick={() => handleRemove(item.title)}>
-                Remove
-              </button>
-            </div>
-          ))
-        ) : (
-          <p className='my-list-grid__empty'>
-            No movies or series in your list yet.
-          </p>
-        )}
+    <section className={styles['my-list-grid']}>
+      <h3 className={styles['my-list-grid__title']}>My List</h3>
+      <div className={styles['my-list-grid__grid']}>
+        {list.map((item, index) => (
+          <div key={index} className={styles['my-list-grid__card']}>
+            <img
+              src={item.image}
+              alt={item.title}
+              className={styles['my-list-grid__image']}
+            />
+            <p className={styles['my-list-grid__title']}>{item.title}</p>
+            <button
+              className={styles['my-list-grid__remove-button']}
+              onClick={() => handleRemove(item)}>
+              Remove
+            </button>
+          </div>
+        ))}
       </div>
     </section>
   );

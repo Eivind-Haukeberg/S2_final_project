@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 import { searchMedia } from '../../services/tmdbService';
-import './AdminForm.css';
+import styles from './AdminForm.module.css';
 
 function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
   const [collectionTitle, setCollectionTitle] = useState('');
@@ -14,44 +14,15 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
   const [searchType, setSearchType] = useState('movie');
   const [posterOrientation, setPosterOrientation] = useState('horizontal');
 
-  // Load already existing collection into the form for when editing
   useEffect(() => {
     if (selectedCollection) {
       setCollectionTitle(selectedCollection.title || '');
       setMediaItems(selectedCollection.items || []);
-      setMessageSuccess(null);
-      setMessageError(null);
+      setPosterOrientation(
+        selectedCollection.posterOrientation || 'horizontal'
+      );
     }
   }, [selectedCollection]);
-
-  useEffect(() => {
-    if (!selectedCollection || mediaItems.length === 0) return;
-
-    const updateImages = async () => {
-      const updated = await Promise.all(
-        mediaItems.map(async (item) => {
-          const media = await searchMedia(item.title, item.type);
-          const found = media.results.find((m) => m.id === item.id);
-
-          if (!found) return item;
-
-          const newImage =
-            posterOrientation === 'vertical'
-              ? `https://image.tmdb.org/t/p/w500${found.poster_path}`
-              : `https://image.tmdb.org/t/p/w500${found.backdrop_path}`;
-
-          return {
-            ...item,
-            image: newImage,
-          };
-        })
-      );
-
-      setMediaItems(updated);
-    };
-
-    updateImages();
-  }, [posterOrientation]);
 
   const handleSearchTMDB = async () => {
     try {
@@ -72,7 +43,6 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
 
     try {
       if (selectedCollection) {
-        // Updating existing collection
         await setDoc(doc(db, 'collections', selectedCollection.id), {
           id: selectedCollection.id,
           title: collectionTitle,
@@ -82,7 +52,6 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
         });
         setMessageSuccess('Collection updated successfully!');
       } else {
-        // Creating new collection
         await addDoc(collection(db, 'collections'), {
           title: collectionTitle,
           items: mediaItems,
@@ -104,26 +73,24 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
   };
 
   return (
-    <form className='admin-collection-form' onSubmit={handleSubmitCollection}>
-      <h2 className='admin-collection-form__heading'>
-        {selectedCollection ? 'Edit Collection' : 'Create New Collection'}
+    <form
+      className={styles['admin-collection-form']}
+      onSubmit={handleSubmitCollection}>
+      <h2 className={styles['admin-collection-form__heading']}>
+        Create New Collection
       </h2>
 
       <input
         type='text'
         placeholder='Collection title'
-        className='admin-collection-form__input'
+        className={styles['admin-collection-form__input']}
         value={collectionTitle}
         onChange={(e) => setCollectionTitle(e.target.value)}
       />
 
-      <h3 className='admin-form__section-heading'>
-        Search for movies and series through TMDB
-      </h3>
-
-      <div className='admin-form__controls'>
+      <div className={styles['admin-form__selectors']}>
         <select
-          className='admin-form__select'
+          className={styles['admin-form__select']}
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}>
           <option value='movie'>Movie</option>
@@ -131,52 +98,52 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
         </select>
 
         <select
-          className='admin-form__select'
+          className={styles['admin-form__select']}
           value={posterOrientation}
           onChange={(e) => setPosterOrientation(e.target.value)}>
-          <option value='horizontal'>Horizontal Posters</option>
-          <option value='vertical'>Vertical Posters</option>
+          <option value='vertical'>Vertical Poster</option>
+          <option value='horizontal'>Horizontal Poster</option>
         </select>
+      </div>
 
+      <div className={styles['admin-form__tmdb-search']}>
         <input
           type='text'
           placeholder='Search for title...'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className='admin-form__input'
+          className={styles['admin-form__input']}
         />
-
         <button
           type='button'
           onClick={handleSearchTMDB}
-          className='admin-form__search-button'>
+          className={styles['admin-form__search-button']}>
           Search
         </button>
       </div>
 
-      <ul className='admin-form__search-results'>
+      <ul className={styles['admin-form__search-results']}>
         {searchResults.map((media) => (
-          <li key={media.id} className='admin-form__search-result'>
+          <li key={media.id} className={styles['admin-form__search-result']}>
             {media.title || media.name}
             <button
               type='button'
               onClick={() => {
-                const image =
-                  posterOrientation === 'vertical'
-                    ? `https://image.tmdb.org/t/p/w500${media.poster_path}`
-                    : `https://image.tmdb.org/t/p/w500${media.backdrop_path}`;
-
+                const imagePath =
+                  posterOrientation === 'horizontal'
+                    ? media.backdrop_path
+                    : media.poster_path;
                 setMediaItems([
                   ...mediaItems,
                   {
                     id: media.id,
                     title: media.title || media.name,
-                    image: image,
+                    image: `https://image.tmdb.org/t/p/w500${imagePath}`,
                     type: searchType,
                   },
                 ]);
               }}
-              className='admin-form__add-from-search-button'>
+              className={styles['admin-form__add-from-search-button']}>
               Add
             </button>
           </li>
@@ -184,49 +151,44 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
       </ul>
 
       {mediaItems.length > 0 && (
-        <div className='admin-form__preview-row'>
-          <h4 className='admin-form__preview-title'>Preview</h4>
-          <div className='admin-form__preview-items'>
-            {mediaItems.map((item) => (
-              <div key={item.id} className='admin-form__preview-card'>
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className={`admin-form__preview-image admin-form__preview-image--${posterOrientation}`}
-                />
-                <p className='admin-form__preview-title-text'>{item.title}</p>
-                <button
-                  type='button'
-                  className='admin-form__preview-remove-button'
-                  onClick={() =>
-                    setMediaItems(mediaItems.filter((m) => m.id !== item.id))
-                  }>
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
+        <div className={styles['admin-form__preview-row']}>
+          {mediaItems.map((item, index) => (
+            <div key={index} className={styles['admin-form__preview-item']}>
+              <img
+                src={item.image}
+                alt={item.title}
+                className={
+                  posterOrientation === 'horizontal'
+                    ? styles['admin-form__image--horizontal']
+                    : styles['admin-form__image--vertical']
+                }
+              />
+              <button
+                type='button'
+                className={styles['admin-form__remove-button']}
+                onClick={() =>
+                  setMediaItems(mediaItems.filter((_, i) => i !== index))
+                }>
+                Remove
+              </button>
+            </div>
+          ))}
         </div>
       )}
 
-      <button type='submit' className='admin-collection-form__submit-button'>
-        {selectedCollection ? 'Update Collection' : 'Save Collection'}
+      <button
+        type='submit'
+        className={styles['admin-collection-form__submit-button']}>
+        Save Collection
       </button>
 
-      {selectedCollection && (
-        <button
-          type='button'
-          onClick={() => setSelectedCollection(null)}
-          className='admin-collection-form__cancel-button'>
-          Cancel Edit
-        </button>
-      )}
-
       {messageError && (
-        <p className='admin-collection-form__message-error'>{messageError}</p>
+        <p className={styles['admin-collection-form__message-error']}>
+          {messageError}
+        </p>
       )}
       {messageSuccess && (
-        <p className='admin-collection-form__message-success'>
+        <p className={styles['admin-collection-form__message-success']}>
           {messageSuccess}
         </p>
       )}

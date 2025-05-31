@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { auth, db } from '../../services/firebaseConfig';
+import { auth } from '../../services/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import styles from './LoginForm.module.css';
 
 function LoginForm() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -27,24 +28,30 @@ function LoginForm() {
   };
 
   return (
-    <form className='login-form' onSubmit={handleSubmit}>
-      <h2 className='login-form__title'>Login</h2>
+    <form className={styles['login-form']} onSubmit={handleSubmit}>
+      <h2 className={styles['login-form__title']}>Login</h2>
 
       <input
         name='email'
         type='email'
         placeholder='Email'
         onChange={handleInput}
+        className={styles['login-form__input']}
       />
+
       <input
         name='password'
         type='password'
         placeholder='Password'
         onChange={handleInput}
+        className={styles['login-form__input']}
       />
-      <button type='submit'>Login</button>
 
-      {error && <p className='login-form__error'>{error}</p>}
+      <button type='submit' className={styles['login-form__submit-button']}>
+        Log In
+      </button>
+
+      {error && <p className={styles['login-form__error-message']}>{error}</p>}
     </form>
   );
 }
