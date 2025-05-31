@@ -31,13 +31,14 @@
 .collection-row__image-wrapper {
   position: relative;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 /* Poster image */
 .collection-row__media-image {
   max-height: 400px;
   display: block;
-  border-radius: 4px;
+
   position: relative;
   z-index: 0;
   transition: transform 0.3s ease-in;
