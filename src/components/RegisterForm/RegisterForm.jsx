@@ -3,6 +3,7 @@ import { auth, db } from '../../services/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
 import styles from './RegisterForm.module.css';
+import Button from '../Button/Button';
 
 function RegisterForm() {
   const [form, setForm] = useState({
@@ -89,9 +90,9 @@ function RegisterForm() {
         className={styles['register-form__input']}
       />
 
-      <button type='submit' className={styles['register-form__submit-button']}>
+      <Button type='submit' variant='primary'>
         Register
-      </button>
+      </Button>
 
       {error && (
         <p className={styles['register-form__error-message']}>{error}</p>

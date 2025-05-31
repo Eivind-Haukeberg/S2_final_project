@@ -1,5 +1,15 @@
 :root {
+  /* Primary Colors */
   --primary-dark: #040b22;
   --primary-orange: #ff8000;
   --primary-sand: #ffdcbd;
+
+  /* Secondary Variants */
+  --secondary-dark: #1a2c4a;
+  --secondary-orange: #ffb366;
+
+  /* Font Colors */
+  --font-on-dark: var(--primary-sand);
+  --font-on-sand: var(--primary-dark);
+  --font-on-orange: var(--primary-dark);
 }

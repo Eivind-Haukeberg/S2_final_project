@@ -1,5 +1,5 @@
 import AdminForm from '../components/AdminForm/AdminForm';
-import AdminCollectionList from '../components/AdminCollectionList/AdimCollectionList';
+import AdminCollectionList from '../components/AdminCollectionList/AdminCollectionList';
 import { useState } from 'react';
 
 function AdminPage() {

@@ -1,0 +1,57 @@
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Primary Button */
+.button--primary {
+  background-color: var(--primary-orange);
+  color: var(--font-on-orange);
+}
+
+.button--primary:hover {
+  background-color: var(--secondary-orange);
+  transform: scale(1.02);
+}
+
+/* Delete Button */
+.button--delete {
+  background-color: #cc0000;
+  color: white;
+}
+
+.button--delete:hover {
+  background-color: #a00000;
+  transform: scale(1.02);
+}
+
+/* Add Small Button */
+.button--add-small {
+  background-color: #1fa74f;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.button--add-small:hover {
+  background-color: #14813c;
+  transform: scale(1.02);
+}
+
+/* Remove Small Button */
+.button--remove-small {
+  background-color: #cc0000;
+  color: white;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.button--remove-small:hover {
+  background-color: #a00000;
+  transform: scale(1.02);
+}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { auth } from '../../services/firebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import Button from '../Button/Button';
 import styles from './LoginForm.module.css';
 
 function LoginForm() {
@@ -47,9 +48,9 @@ function LoginForm() {
         className={styles['login-form__input']}
       />
 
-      <button type='submit' className={styles['login-form__submit-button']}>
+      <Button type='submit' variant='primary'>
         Log In
-      </button>
+      </Button>
 
       {error && <p className={styles['login-form__error-message']}>{error}</p>}
     </form>

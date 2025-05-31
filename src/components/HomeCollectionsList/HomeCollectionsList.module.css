@@ -1,0 +1,13 @@
+.home-collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.home-collections-list__loading,
+.home-collections-list__error {
+  color: var(--font-on-dark);
+  text-align: center;
+  margin-top: 2rem;
+}

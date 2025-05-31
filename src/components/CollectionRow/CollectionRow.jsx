@@ -1,6 +1,7 @@
 import styles from './CollectionRow.module.css';
 import { useState } from 'react';
 import { addToUserList } from '../../utilities/addToMyList';
+import Button from '../Button/Button';
 
 function CollectionRow({ title, items }) {
   const [feedback, setFeedback] = useState({});
@@ -40,11 +41,12 @@ function CollectionRow({ title, items }) {
               />
             </a>
 
-            <button
-              className={styles['collection-row__button']}
+            <Button
+              type='button'
+              variant='add-small'
               onClick={() => handleAdd(item)}>
               Add to My List
-            </button>
+            </Button>
 
             {feedback[item.title] && (
               <p className={styles['collection-row__feedback']}>

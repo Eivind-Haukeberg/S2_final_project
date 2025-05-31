@@ -1,0 +1,4 @@
+body {
+  background-color: var(--primary-dark);
+  color: var(--font-on-dark);
+}

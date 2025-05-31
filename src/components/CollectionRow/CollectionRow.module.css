@@ -6,7 +6,7 @@
 .collection-row__title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: rgb(0, 0, 0);
+  color: var(--font-on-sand);
 }
 
 .collection-row__media-scroll {
@@ -18,7 +18,7 @@
 
 .collection-row__media-card {
   min-width: 160px;
-  background-color: #1e1e1e;
+  background-color: var(--secondary-dark);
   border-radius: 8px;
   padding: 0.5rem;
   text-align: center;
@@ -32,21 +32,21 @@
 
 .collection-row__media-title {
   margin-top: 0.5rem;
-  color: white;
+  color: var(--font-on-dark);
 }
 
 .collection-row__add-button {
   margin-top: 0.5rem;
   padding: 0.4rem;
   border: none;
-  background-color: #2c2c2c;
-  color: white;
+  background-color: var(--primary-dark);
+  color: var(--font-on-dark);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .collection-row__add-button:hover {
-  background-color: #444;
+  background-color: var(--secondary-dark);
 }
 
 .collection-row__feedback-message {

@@ -3,8 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #040b22;
-  color: #ffdcbd;
+  background-color: var(--primary-dark);
+  color: var(--font-on-dark);
+  border-bottom: 2px solid var(--primary-orange);
 }
 
 .navigation-bar__logo {
@@ -12,8 +13,7 @@
   width: auto;
 }
 
-.logo-image,
-.logo-icon {
+.navigation-bar__logo-image {
   height: 40px;
   width: auto;
 }
@@ -24,7 +24,7 @@
 }
 
 .navigation-bar__link {
-  color: #ffdcbd;
+  color: var(--font-on-dark);
   text-decoration: none;
 }
 

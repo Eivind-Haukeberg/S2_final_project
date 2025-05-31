@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import MyPage from './pages/MyPage';
 import AdminPage from './pages/AdminPage';
 import './styles/reset.css';
+import './styles/variables.css';
+import './index.css';
 
 function App() {
   return (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { auth, db } from '../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import MyListGrid from '../components/MyListGrid/MyListGrid';
-import '../components/MyListGrid/MyListGrid.css';
+import styles from '../components/MyListGrid/MyListGrid.module.css';
 import { signOut } from 'firebase/auth';
 
 function MyPage() {

@@ -2,9 +2,10 @@
   padding: 2rem;
 }
 
-.my-list-grid__title {
+.my-list-grid__heading {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  color: var(--font-on-dark);
 }
 
 .my-list-grid__items {
@@ -14,7 +15,7 @@
 }
 
 .my-list-grid__card {
-  background: #1e1e1e;
+  background: var(--secondary-dark);
   padding: 0.5rem;
   border-radius: 8px;
   text-align: center;
@@ -25,35 +26,12 @@
   border-radius: 4px;
 }
 
-.my-list-grid__name {
+.my-list-grid__title {
   margin-top: 0.5rem;
-  color: white;
+  color: var(--font-on-dark);
+  font-size: 0.95rem;
 }
 
 .my-list-grid__empty {
   color: gray;
-}
-
-.my-list-grid__remove-button {
-  margin-top: 0.5rem;
-  padding: 0.4rem;
-  background-color: #bb2222;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.my-list-grid__remove-button:hover {
-  background-color: #dd4444;
-}
-
-.my-page__logout-button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }

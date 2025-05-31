@@ -1,43 +1,44 @@
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
-import { doc, getDoc } from 'firebase/firestore';
-import { removeFromUserList } from '../../utilities/removeFromMyList';
+import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
+import Button from '../Button/Button';
 import styles from './MyListGrid.module.css';
 
 function MyListGrid() {
-  const [list, setList] = useState([]);
+  const [myList, setMyList] = useState([]);
 
-  const handleRemove = async (titleToRemove) => {
-    try {
-      const updated = await removeFromUserList(titleToRemove);
-      setList(updated);
-    } catch (error) {
-      console.error('Error removing item:', error);
+  const fetchMyList = async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const docRef = doc(db, 'users', user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      setMyList(data.myList || []);
     }
   };
 
+  const handleRemove = async (item) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const userRef = doc(db, 'users', user.uid);
+    await updateDoc(userRef, {
+      myList: arrayRemove(item),
+    });
+    fetchMyList(); // refresh after removal
+  };
+
   useEffect(() => {
-    const fetchList = async () => {
-      const user = auth.currentUser;
-      if (!user) return;
-
-      const userRef = doc(db, 'users', user.uid);
-      const userSnap = await getDoc(userRef);
-
-      if (userSnap.exists()) {
-        const data = userSnap.data();
-        setList(data.myList || []);
-      }
-    };
-
-    fetchList();
+    fetchMyList();
   }, []);
 
   return (
-    <section className={styles['my-list-grid']}>
-      <h3 className={styles['my-list-grid__title']}>My List</h3>
-      <div className={styles['my-list-grid__grid']}>
-        {list.map((item, index) => (
+    <div className={styles['my-list-grid']}>
+      <h3 className={styles['my-list-grid__heading']}>My List</h3>
+      <div className={styles['my-list-grid__items']}>
+        {myList.map((item, index) => (
           <div key={index} className={styles['my-list-grid__card']}>
             <img
               src={item.image}
@@ -45,15 +46,13 @@ function MyListGrid() {
               className={styles['my-list-grid__image']}
             />
             <p className={styles['my-list-grid__title']}>{item.title}</p>
-            <button
-              className={styles['my-list-grid__remove-button']}
-              onClick={() => handleRemove(item)}>
+            <Button variant='remove-small' onClick={() => handleRemove(item)}>
               Remove
-            </button>
+            </Button>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
 

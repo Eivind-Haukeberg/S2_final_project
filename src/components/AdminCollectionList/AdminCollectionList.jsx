@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
   collection,
+  updateDoc,
   getDocs,
   deleteDoc,
   doc,
-  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
+import Button from '../Button/Button';
 import styles from './AdminCollectionList.module.css';
 
-function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
+function AdminCollectionList({ onEdit }) {
   const [collections, setCollections] = useState([]);
 
   const fetchCollections = async () => {
@@ -22,9 +23,10 @@ function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
   };
 
   const handleRowOrderChange = async (newOrder, id) => {
+    const docRef = doc(db, 'collections', id);
     const parsed = parseInt(newOrder);
     if (isNaN(parsed) || parsed < 1) return;
-    await updateDoc(doc(db, 'collections', id), { rowOrder: parsed });
+    await updateDoc(docRef, { rowOrder: parsed });
     fetchCollections();
   };
 
@@ -39,7 +41,7 @@ function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
 
   useEffect(() => {
     fetchCollections();
-  }, [refreshTrigger]);
+  }, []);
 
   return (
     <div className={styles['admin-collection-list']}>
@@ -90,16 +92,12 @@ function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
                 {col.posterOrientation || 'Not set'}
               </td>
               <td className={styles['admin-collection-list__table-cell']}>
-                <button
-                  className={`${styles['admin-collection-list__button']} ${styles['admin-collection-list__button--edit']}`}
-                  onClick={() => setSelectedCollection(col)}>
+                <Button variant='primary' onClick={() => onEdit(col)}>
                   Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(col.id)}
-                  className={`${styles['admin-collection-list__button']} ${styles['admin-collection-list__button--delete']}`}>
+                </Button>
+                <Button variant='delete' onClick={() => handleDelete(col.id)}>
                   Delete
-                </button>
+                </Button>
               </td>
             </tr>
           ))}
