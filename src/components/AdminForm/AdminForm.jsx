@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { db } from '../../services/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
-import '../../components/AdminForm/AdminForm.css';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 import { searchMedia } from '../../services/tmdbService';
+import './AdminForm.css';
 
-function AdminCollectionForm() {
+function AdminForm({ selectedCollection, setSelectedCollection }) {
   const [collectionTitle, setCollectionTitle] = useState('');
   const [mediaItems, setMediaItems] = useState([]);
   const [messageSuccess, setMessageSuccess] = useState(null);
@@ -12,6 +12,16 @@ function AdminCollectionForm() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchType, setSearchType] = useState('movie');
+
+  // Load already existing collection into the form for when editing
+  useEffect(() => {
+    if (selectedCollection) {
+      setCollectionTitle(selectedCollection.title || '');
+      setMediaItems(selectedCollection.items || []);
+      setMessageSuccess(null);
+      setMessageError(null);
+    }
+  }, [selectedCollection]);
 
   const handleSearchTMDB = async () => {
     try {
@@ -31,13 +41,34 @@ function AdminCollectionForm() {
     }
 
     try {
-      await addDoc(collection(db, 'collections'), {
-        title: collectionTitle,
-        items: mediaItems,
-      });
-      setMessageSuccess('Collection saved successfully!');
+      if (selectedCollection) {
+        // update the existing collection
+        await setDoc(doc(db, 'collections', selectedCollection.id), {
+          id: selectedCollection.id,
+          title: collectionTitle,
+          items: mediaItems,
+          posterOrientation:
+            selectedCollection.posterOrientation || 'horizontal',
+          rowOrder: selectedCollection.rowOrder || 1,
+        });
+        setMessageSuccess('Collection updated successfully!');
+      } else {
+        // create a new collection
+        await addDoc(collection(db, 'collections'), {
+          title: collectionTitle,
+          items: mediaItems,
+          posterOrientation: 'horizontal',
+          rowOrder: 1,
+        });
+        setMessageSuccess('Collection created successfully!');
+      }
+
+      // Reset the form
       setCollectionTitle('');
-      setMediaItems([{ title: '', image: '' }]);
+      setMediaItems([]);
+      setSelectedCollection(null);
+      setSearchQuery('');
+      setSearchResults([]);
       setMessageError(null);
     } catch (error) {
       setMessageError('Failed to save collection: ' + error.message);
@@ -46,7 +77,9 @@ function AdminCollectionForm() {
 
   return (
     <form className='admin-collection-form' onSubmit={handleSubmitCollection}>
-      <h2 className='admin-collection-form__heading'>Create New Collection</h2>
+      <h2 className='admin-collection-form__heading'>
+        {selectedCollection ? 'Edit Collection' : 'Create New Collection'}
+      </h2>
 
       <input
         type='text'
@@ -108,8 +141,17 @@ function AdminCollectionForm() {
       </ul>
 
       <button type='submit' className='admin-collection-form__submit-button'>
-        Save Collection
+        {selectedCollection ? 'Update Collection' : 'Save Collection'}
       </button>
+
+      {selectedCollection && (
+        <button
+          type='button'
+          onClick={() => setSelectedCollection(null)}
+          className='admin-collection-form__cancel-button'>
+          Cancel Edit
+        </button>
+      )}
 
       {messageError && (
         <p className='admin-collection-form__message-error'>{messageError}</p>
@@ -123,4 +165,4 @@ function AdminCollectionForm() {
   );
 }
 
-export default AdminCollectionForm;
+export default AdminForm;

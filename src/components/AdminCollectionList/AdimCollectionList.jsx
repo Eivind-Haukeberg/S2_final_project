@@ -9,7 +9,7 @@ import {
 import { db } from '../../services/firebaseConfig';
 import './AdminCollectionList.css';
 
-function AdminCollectionList() {
+function AdminCollectionList({ setSelectedCollection }) {
   const [collections, setCollections] = useState([]);
 
   const fetchCollections = async () => {
@@ -38,10 +38,9 @@ function AdminCollectionList() {
     fetchCollections();
   };
 
-  //     // --FOR EDIT FUNCTIONALLITY LATER IF I HAVE TIME--
-  //   const handleEdit = (collection) => {
-  //     alert("Edit clicked for: " + collection.title);
-  //   };
+  const handleEdit = (collection) => {
+    alert('Edit clicked for: ' + collection.title);
+  };
 
   useEffect(() => {
     fetchCollections();
@@ -85,10 +84,11 @@ function AdminCollectionList() {
               </td>
               <td className='admin-collection-list__table-cell'>
                 <button
-                  onClick={() => handleEdit(col)}
-                  className='admin-collection-list__button admin-collection-list__button--edit'>
+                  className='admin-collection-list__button admin-collection-list__button--edit'
+                  onClick={() => setSelectedCollection(col)}>
                   Edit
                 </button>
+
                 <button
                   onClick={() => handleDelete(col.id)}
                   className='admin-collection-list__button admin-collection-list__button--delete'>
