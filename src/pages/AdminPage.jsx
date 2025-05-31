@@ -1,10 +1,14 @@
 import AdminForm from '../components/AdminForm/AdminForm';
 import AdminCollectionList from '../components/AdminCollectionList/AdimCollectionList';
-
 import { useState } from 'react';
 
 function AdminPage() {
   const [selectedCollection, setSelectedCollection] = useState(null);
+  const [refreshList, setRefreshList] = useState(false);
+
+  const handleRefresh = () => {
+    setRefreshList((prev) => !prev);
+  };
 
   return (
     <div className='admin-page'>
@@ -12,8 +16,12 @@ function AdminPage() {
       <AdminForm
         selectedCollection={selectedCollection}
         setSelectedCollection={setSelectedCollection}
+        onSave={handleRefresh}
       />
-      <AdminCollectionList setSelectedCollection={setSelectedCollection} />
+      <AdminCollectionList
+        setSelectedCollection={setSelectedCollection}
+        refreshTrigger={refreshList}
+      />
     </div>
   );
 }

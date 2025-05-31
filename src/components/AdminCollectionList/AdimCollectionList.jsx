@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import {
   collection,
-  updateDoc,
   getDocs,
   deleteDoc,
   doc,
+  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../../services/firebaseConfig';
 import './AdminCollectionList.css';
 
-function AdminCollectionList({ setSelectedCollection }) {
+function AdminCollectionList({ setSelectedCollection, refreshTrigger }) {
   const [collections, setCollections] = useState([]);
 
   const fetchCollections = async () => {
@@ -22,10 +22,9 @@ function AdminCollectionList({ setSelectedCollection }) {
   };
 
   const handleRowOrderChange = async (newOrder, id) => {
-    const docRef = doc(db, 'collections', id);
     const parsed = parseInt(newOrder);
     if (isNaN(parsed) || parsed < 1) return;
-    await updateDoc(docRef, { rowOrder: parsed });
+    await updateDoc(doc(db, 'collections', id), { rowOrder: parsed });
     fetchCollections();
   };
 
@@ -38,13 +37,9 @@ function AdminCollectionList({ setSelectedCollection }) {
     fetchCollections();
   };
 
-  const handleEdit = (collection) => {
-    alert('Edit clicked for: ' + collection.title);
-  };
-
   useEffect(() => {
     fetchCollections();
-  }, []);
+  }, [refreshTrigger]); // ✅ Refresh list when this value changes
 
   return (
     <div className='admin-collection-list'>
@@ -88,7 +83,6 @@ function AdminCollectionList({ setSelectedCollection }) {
                   onClick={() => setSelectedCollection(col)}>
                   Edit
                 </button>
-
                 <button
                   onClick={() => handleDelete(col.id)}
                   className='admin-collection-list__button admin-collection-list__button--delete'>
