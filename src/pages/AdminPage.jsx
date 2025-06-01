@@ -21,6 +21,7 @@ function AdminPage() {
       <AdminCollectionList
         setSelectedCollection={setSelectedCollection}
         refreshTrigger={refreshList}
+        onEdit={setSelectedCollection}
       />
     </div>
   );
