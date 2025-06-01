@@ -19,6 +19,17 @@
   transform: scale(1.02);
 }
 
+/* Secondary Button */
+.button--secondary {
+  background-color: var(--secondary-dark);
+  color: var(--font-on-dark);
+}
+
+.button--secondary:hover {
+  background-color: var(--secondary-light);
+  transform: scale(1.02);
+}
+
 /* Delete Button */
 .button--delete {
   background-color: #cc0000;

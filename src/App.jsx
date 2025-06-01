@@ -6,6 +6,7 @@ import AdminPage from './pages/AdminPage';
 import './styles/reset.css';
 import './styles/variables.css';
 import './index.css';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -14,7 +15,22 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/my-page' element={<MyPage />} />
-        <Route path='/admin' element={<AdminPage />} />
+        <Route
+          path='/my-page'
+          element={
+            <ProtectedRoute>
+              <MyPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/admin'
+          element={
+            <ProtectedRoute>
+              <AdminPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

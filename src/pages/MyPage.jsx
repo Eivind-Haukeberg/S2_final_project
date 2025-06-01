@@ -4,9 +4,12 @@ import { doc, getDoc } from 'firebase/firestore';
 import MyListGrid from '../components/MyListGrid/MyListGrid';
 import styles from '../components/MyListGrid/MyListGrid.module.css';
 import { signOut } from 'firebase/auth';
+import Button from '../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 function MyPage() {
   const [userInfo, setUserInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,6 +28,7 @@ function MyPage() {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      navigate('/'); // Redirect to homepage
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -45,9 +49,9 @@ function MyPage() {
             <p>
               <strong>Country:</strong> {userInfo.country}
             </p>
-            <button className='my-page__logout-button' onClick={handleLogout}>
-              Log out
-            </button>
+            <Button onClick={handleLogout} variant='primary'>
+              Log Out
+            </Button>
           </div>
           <MyListGrid />
         </>

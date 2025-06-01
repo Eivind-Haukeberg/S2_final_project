@@ -1,0 +1,32 @@
+.login-form {
+  padding: 2rem;
+  max-width: 400px;
+  margin: 4rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--primary-dark);
+  color: var(--font-on-dark);
+  border-radius: 8px;
+}
+
+.login-form__title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-form__input {
+  padding: 0.6rem;
+  border: 1px solid var(--secondary-dark);
+  border-radius: 6px;
+  background-color: var(--secondary-dark);
+  color: var(--font-on-dark);
+  font-size: 1rem;
+}
+
+.login-form__error-message {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+}

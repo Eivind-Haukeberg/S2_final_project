@@ -10,12 +10,18 @@ function HomePage() {
     <div className='home-page'>
       <h1 className='home-page__title'>Welcome to OneApp</h1>
 
-      {!user && (
-        <>
-          <LoginForm />
-          <RegisterForm />
-        </>
-      )}
+      <div className='auth-form'>
+        {!user && (
+          <>
+            <div>
+              <LoginForm />
+            </div>
+            <div>
+              <RegisterForm />
+            </div>
+          </>
+        )}
+      </div>
 
       <HomeCollectionsList />
     </div>

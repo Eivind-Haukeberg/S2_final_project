@@ -21,3 +21,10 @@ body {
 .admin-page__title {
   margin: 2rem;
 }
+
+/* .auth-form {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10rem;
+} */
