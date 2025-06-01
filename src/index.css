@@ -1,4 +1,8 @@
 body {
-  background-color: var(--primary-dark);
-  color: var(--font-on-dark);
+  background: linear-gradient(
+    to right,
+    var(--gradiant-dark),
+    var(--gradiant-light)
+  );
+  color: var(--primary-sand);
 }

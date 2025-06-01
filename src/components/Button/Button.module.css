@@ -56,10 +56,31 @@
   border-radius: 8px;
   cursor: pointer;
   z-index: 1;
+  font-weight: bolder;
 }
 
 .button--mylist:hover {
   background-color: #14813c;
+  transform: scale(1);
+}
+
+.button--mylist-remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  background-color: #cc0000;
+  color: var(--primary-sand);
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 1;
+  font-weight: bolder;
+}
+
+.button--mylist-remove:hover {
+  background-color: #a10000;
   transform: scale(1);
 }
 

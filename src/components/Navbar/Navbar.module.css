@@ -5,22 +5,24 @@
   padding: 1rem;
   background-color: var(--primary-dark);
   color: var(--font-on-dark);
+  font-size: 1.5rem;
+  font-weight: bolder;
   border-bottom: 2px solid var(--primary-orange);
 }
 
 .navigation-bar__logo {
-  height: 40px;
+  height: 60px;
   width: auto;
 }
 
 .navigation-bar__logo-image {
-  height: 40px;
+  height: 60px;
   width: auto;
 }
 
 .navigation-bar__links {
   display: flex;
-  gap: 1rem;
+  gap: 5rem;
 }
 
 .navigation-bar__link {

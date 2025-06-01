@@ -8,6 +8,10 @@
   --secondary-dark: #1a2c4a;
   --secondary-orange: #ffb366;
 
+  /* Gradiant */
+  --gradiant-dark: #030f2c;
+  --gradiant-light: #04153e;
+
   /* Font Colors */
   --font-on-dark: var(--primary-sand);
   --font-on-sand: var(--primary-dark);

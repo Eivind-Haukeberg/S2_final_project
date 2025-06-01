@@ -40,15 +40,21 @@ function MyListGrid() {
       <div className={styles['my-list-grid__items']}>
         {myList.map((item, index) => (
           <div key={index} className={styles['my-list-grid__card']}>
-            <img
-              src={item.image}
-              alt={item.title}
-              className={styles['my-list-grid__image']}
-            />
-            <p className={styles['my-list-grid__title']}>{item.title}</p>
-            <Button variant='remove-small' onClick={() => handleRemove(item)}>
-              Remove
-            </Button>
+            <div className={styles['my-list-grid__image-wrapper']}>
+              <img
+                src={item.image}
+                alt={item.title}
+                className={styles['my-list-grid__image']}
+              />
+              <div className={styles['my-list-grid__title']}>{item.title}</div>
+              <Button
+                type='button'
+                variant='mylist-remove'
+                onClick={() => handleRemove(item)}
+                className='button--mylist-remove'>
+                x
+              </Button>
+            </div>
           </div>
         ))}
       </div>

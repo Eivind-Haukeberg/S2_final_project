@@ -6,16 +6,18 @@ function Navbar() {
   return (
     <nav className={styles['navigation-bar']}>
       <div className={styles['navigation-bar__logo']}>
-        <img
-          src={logo}
-          alt='OneApp Logo'
-          className={styles['navigation-bar__logo-image']}
-        />
+        <Link to='/'>
+          <img
+            src={logo}
+            alt='OneApp Logo'
+            className={styles['navigation-bar__logo-image']}
+          />
+        </Link>
       </div>
       <div className={styles['navigation-bar__links']}>
-        <Link to='/' className={styles['navigation-bar__link']}>
+        {/* <Link to='/' className={styles['navigation-bar__link']}>
           Home
-        </Link>
+        </Link> */}
         <Link to='/my-page' className={styles['navigation-bar__link']}>
           My Page
         </Link>
