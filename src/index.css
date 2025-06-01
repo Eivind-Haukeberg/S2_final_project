@@ -22,9 +22,13 @@ body {
   margin: 2rem;
 }
 
-/* .auth-form {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10rem;
-} */
+/* === Responsive Tweaks === */
+@media (max-width: 768px) {
+  .my-page__info,
+  .my-page__title,
+  .admin-page__title,
+  .home-page__title {
+    margin: 1rem;
+    padding: 0 1rem;
+  }
+}

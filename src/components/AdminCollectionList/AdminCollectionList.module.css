@@ -55,3 +55,17 @@
   display: flex;
   gap: 1rem;
 }
+
+@media (max-width: 768px) {
+  .admin-collection-list__table {
+    font-size: 0.85rem;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .admin-collection-list__actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

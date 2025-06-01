@@ -91,3 +91,21 @@
   font-size: 0.9rem;
   text-align: center;
 }
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .admin-form {
+    padding: 1rem;
+  }
+
+  .admin-form__input,
+  .admin-form__select {
+    font-size: 0.95rem;
+    min-width: 100%;
+  }
+
+  .admin-form__input-row,
+  .admin-form__search-section {
+    flex-direction: column;
+  }
+}
