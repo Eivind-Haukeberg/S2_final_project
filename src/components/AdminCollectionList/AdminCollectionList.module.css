@@ -50,3 +50,8 @@
   color: var(--primary-dark);
   font-weight: bold;
 }
+
+.admin-collection-list__actions {
+  display: flex;
+  gap: 1rem;
+}

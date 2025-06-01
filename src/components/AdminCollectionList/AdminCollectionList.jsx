@@ -92,12 +92,14 @@ function AdminCollectionList({ onEdit }) {
                 {col.posterOrientation || 'Not set'}
               </td>
               <td className={styles['admin-collection-list__table-cell']}>
-                <Button variant='primary' onClick={() => onEdit(col)}>
-                  Edit
-                </Button>
-                <Button variant='delete' onClick={() => handleDelete(col.id)}>
-                  Delete
-                </Button>
+                <div className={styles['admin-collection-list__actions']}>
+                  <Button variant='primary' onClick={() => onEdit(col)}>
+                    Edit
+                  </Button>
+                  <Button variant='delete' onClick={() => handleDelete(col.id)}>
+                    Delete
+                  </Button>
+                </div>
               </td>
             </tr>
           ))}

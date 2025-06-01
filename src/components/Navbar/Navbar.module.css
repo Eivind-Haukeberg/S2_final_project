@@ -13,6 +13,7 @@
 .navigation-bar__logo {
   height: 60px;
   width: auto;
+  margin-left: 1rem;
 }
 
 .navigation-bar__logo-image {
@@ -23,6 +24,7 @@
 .navigation-bar__links {
   display: flex;
   gap: 5rem;
+  margin-right: 1rem;
 }
 
 .navigation-bar__link {

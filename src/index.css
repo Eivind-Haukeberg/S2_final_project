@@ -6,3 +6,18 @@ body {
   );
   color: var(--primary-sand);
 }
+
+.my-page__info {
+  margin-left: 2rem;
+}
+.my-page__title {
+  margin: 2rem;
+}
+
+.home-page__title {
+  margin: 2rem;
+}
+
+.admin-page__title {
+  margin: 2rem;
+}

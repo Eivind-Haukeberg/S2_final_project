@@ -8,7 +8,7 @@ function HomePage() {
 
   return (
     <div className='home-page'>
-      <h1>Welcome to OneApp</h1>
+      <h1 className='home-page__title'>Welcome to OneApp</h1>
 
       {!user && (
         <>
