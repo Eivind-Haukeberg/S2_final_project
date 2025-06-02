@@ -1,29 +1,35 @@
+/* Container for the My List grid layout */
 .my-list-grid {
   padding: 2rem;
 }
 
+/* Heading for the My List section */
 .my-list-grid__heading {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: var(--font-on-dark);
 }
 
+/* Grid layout for media items */
 .my-list-grid__items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1rem;
 }
 
+/* Card wrapper for each media item */
 .my-list-grid__card {
   position: relative;
 }
 
+/* Image container with overflow handling */
 .my-list-grid__image-wrapper {
   position: relative;
   overflow: hidden;
   border-radius: 4px;
 }
 
+/* Image styling and transition effect */
 .my-list-grid__image {
   width: 100%;
   display: block;
@@ -32,10 +38,12 @@
   position: relative;
 }
 
+/* Slight zoom on image hover */
 .my-list-grid__image-wrapper:hover .my-list-grid__image {
   transform: scale(1.05);
 }
 
+/* Overlay effect on image */
 .my-list-grid__image-wrapper::before {
   content: '';
   position: absolute;
@@ -49,6 +57,7 @@
   opacity: 0;
 }
 
+/* Title displayed over image on hover */
 .my-list-grid__title {
   position: absolute;
   bottom: 0;
@@ -68,6 +77,7 @@
   opacity: 1;
 }
 
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .my-list-grid {
     padding: 1rem;

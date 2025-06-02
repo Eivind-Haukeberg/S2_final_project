@@ -1,11 +1,19 @@
+// ----- COMPONENT PURPOSE ----->
+// This component renders the top navigation bar, including the logo and links to "My Page" and "Admin".
+// It includes a responsive burger menu for toggling navigation visibility on smaller screens.
+
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo/OneApp_logo.svg';
 import styles from './Navbar.module.css';
 
 function Navbar() {
+  // ----- STATE MANAGEMENT ----->
+  // Manages the toggle state for opening and closing the burger menu.
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // ----- COMPONENT RENDERING ----->
+  // Renders the navigation bar with a logo link and a collapsible menu containing navigation links.
   return (
     <nav className={styles['navigation-bar']}>
       <div className={styles['navigation-bar__container']}>

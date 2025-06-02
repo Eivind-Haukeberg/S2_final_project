@@ -1,3 +1,4 @@
+/* Container styling for the registration form */
 .register-form {
   padding: 2rem;
   max-width: 400px;
@@ -10,12 +11,14 @@
   border-radius: 8px;
 }
 
+/* Title styling */
 .register-form__title {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
 }
 
+/* Input field styling */
 .register-form__input {
   padding: 0.6rem;
   border: 1px solid var(--secondary-dark);
@@ -25,19 +28,21 @@
   font-size: 1rem;
 }
 
+/* Error message display */
 .register-form__error-message {
   color: red;
   font-size: 0.9rem;
   text-align: center;
 }
 
+/* Success message display */
 .register-form__success-message {
   color: green;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* === Responsive === */
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .register-form {
     padding: 1.5rem 1rem;

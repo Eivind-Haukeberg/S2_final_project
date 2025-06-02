@@ -1,3 +1,4 @@
+/* Container for the list of collections on the homepage */
 .home-collections-list {
   display: flex;
   flex-direction: column;
@@ -5,6 +6,7 @@
   padding: 1rem;
 }
 
+/* Styling for loading and error messages */
 .home-collections-list__loading,
 .home-collections-list__error {
   color: var(--font-on-dark);

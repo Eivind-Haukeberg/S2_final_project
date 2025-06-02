@@ -1,3 +1,7 @@
+// ----- COMPONENT PURPOSE ----->
+// This component displays a grid of media items that the user has saved to "My List".
+// It also allows users to remove items from their list using Firebase Firestore.
+
 import { useEffect, useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore';
@@ -5,8 +9,12 @@ import Button from '../Button/Button';
 import styles from './MyListGrid.module.css';
 
 function MyListGrid() {
+  // ----- STATE MANAGEMENT ----->
+  // Holds the user's saved list of media items.
   const [myList, setMyList] = useState([]);
 
+  // ----- FETCH USER LIST FROM FIRESTORE ----->
+  // Retrieves the current user's saved list from Firestore and updates local state.
   const fetchMyList = async () => {
     const user = auth.currentUser;
     if (!user) return;
@@ -19,6 +27,8 @@ function MyListGrid() {
     }
   };
 
+  // ----- HANDLE ITEM REMOVAL ----->
+  // Removes the specified item from the user's list in Firestore and refreshes the local list.
   const handleRemove = async (item) => {
     const user = auth.currentUser;
     if (!user) return;
@@ -30,10 +40,14 @@ function MyListGrid() {
     fetchMyList(); // refresh after removal
   };
 
+  // ----- INITIAL DATA FETCHING ----->
+  // Fetches the list when the component mounts.
   useEffect(() => {
     fetchMyList();
   }, []);
 
+  // ----- COMPONENT RENDERING ----->
+  // Renders the user's saved media list in a grid layout. Each item includes a link and a remove button.
   return (
     <div className={styles['my-list-grid']}>
       <h3 className={styles['my-list-grid__heading']}>My List</h3>

@@ -1,3 +1,4 @@
+/* Main container styling for the admin form */
 .admin-form {
   padding: 2rem;
   max-width: 800px;
@@ -10,12 +11,14 @@
   border-radius: 8px;
 }
 
+/* Heading styles for the form */
 .admin-form__heading {
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
 }
 
+/* Layout for input rows and search section */
 .admin-form__input-row,
 .admin-form__search-section {
   display: flex;
@@ -23,6 +26,7 @@
   flex-wrap: wrap;
 }
 
+/* Styling for text inputs and selects */
 .admin-form__input,
 .admin-form__select {
   padding: 0.6rem;
@@ -35,12 +39,14 @@
   min-width: 150px;
 }
 
+/* Resets list styling for search results */
 .admin-form__search-results {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* Styles for each search result item */
 .admin-form__search-result {
   display: flex;
   justify-content: space-between;
@@ -51,6 +57,7 @@
   margin-bottom: 0.5rem;
 }
 
+/* Section for media preview display */
 .admin-form__preview {
   margin-top: 2rem;
 }
@@ -60,6 +67,7 @@
   font-size: 1.2rem;
 }
 
+/* Horizontal scrollable container for preview items */
 .admin-form__preview-list {
   display: flex;
   gap: 1rem;
@@ -67,6 +75,7 @@
   padding: 0.5rem 0;
 }
 
+/* Individual preview card layout */
 .admin-form__preview-item {
   display: flex;
   flex-direction: column;
@@ -74,12 +83,14 @@
   max-width: 160px;
 }
 
+/* Image styling inside preview */
 .admin-form__preview-image {
   width: 150px;
   height: auto;
   border-radius: 6px;
 }
 
+/* Error and success messages */
 .admin-form__error {
   color: red;
   font-size: 0.9rem;
@@ -92,7 +103,7 @@
   text-align: center;
 }
 
-/* === Responsive === */
+/* Adjust layout for smaller screens */
 @media (max-width: 768px) {
   .admin-form {
     padding: 1rem;

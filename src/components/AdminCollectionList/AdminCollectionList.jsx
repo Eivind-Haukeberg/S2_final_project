@@ -1,3 +1,6 @@
+// ----- COMPONENT PURPOSE ----->
+// This component fetches and displays a list of collections from Firestore, allowing admins to edit or delete collections and update their row order.
+
 import { useEffect, useState } from 'react';
 import {
   collection,
@@ -11,8 +14,13 @@ import Button from '../Button/Button';
 import styles from './AdminCollectionList.module.css';
 
 function AdminCollectionList({ onEdit }) {
+  // ----- STATE MANAGEMENT ----->
+  // This hook initializes local state to store the fetched list of collections from Firestore.
   const [collections, setCollections] = useState([]);
 
+  // ----- FETCH COLLECTIONS FROM FIRESTORE ----->
+  // This asynchronous function retrieves documents from the 'collections' Firestore collection,
+  // maps over them to extract the data along with the document ID, and stores them in local state.
   const fetchCollections = async () => {
     const snapshot = await getDocs(collection(db, 'collections'));
     const fetched = snapshot.docs.map((doc) => ({
@@ -22,6 +30,9 @@ function AdminCollectionList({ onEdit }) {
     setCollections(fetched);
   };
 
+  // ----- HANDLE ROW ORDER CHANGE ----->
+  // This function updates the 'rowOrder' field for a specific document in Firestore.
+  // It ensures the new order is a valid positive integer before updating, then refreshes the list.
   const handleRowOrderChange = async (newOrder, id) => {
     const docRef = doc(db, 'collections', id);
     const parsed = parseInt(newOrder);
@@ -30,6 +41,9 @@ function AdminCollectionList({ onEdit }) {
     fetchCollections();
   };
 
+  // ----- HANDLE DELETE ----->
+  // This function prompts the user for confirmation before deleting a specific collection document
+  // from Firestore. After deletion, it refreshes the list of collections.
   const handleDelete = async (id) => {
     const confirm = window.confirm(
       'Are you sure you want to delete this collection?'
@@ -39,10 +53,15 @@ function AdminCollectionList({ onEdit }) {
     fetchCollections();
   };
 
+  // ----- INITIAL DATA FETCHING ----->
+  // This hook ensures collections are fetched once when the component mounts.
   useEffect(() => {
     fetchCollections();
   }, []);
 
+  // ----- COMPONENT RENDERING ----->
+  // Renders a table of existing collections with editable row orders, collection data,
+  // and buttons for editing and deleting each collection.
   return (
     <div className={styles['admin-collection-list']}>
       <h2 className={styles['admin-collection-list__heading']}>

@@ -1,3 +1,4 @@
+/* Base button styling for all variants */
 .button {
   padding: 0.5rem 1rem;
   border: none;
@@ -8,7 +9,7 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Primary Button */
+/* Primary button with orange background */
 .button--primary {
   background-color: var(--primary-orange);
   color: var(--font-on-orange);
@@ -19,7 +20,7 @@
   transform: scale(1.02);
 }
 
-/* Secondary Button */
+/* Secondary button with dark theme */
 .button--secondary {
   background-color: var(--secondary-dark);
   color: var(--font-on-dark);
@@ -30,7 +31,7 @@
   transform: scale(1.02);
 }
 
-/* Delete Button */
+/* Delete button with red styling */
 .button--delete {
   background-color: #cc0000;
   color: white;
@@ -41,7 +42,7 @@
   transform: scale(1.02);
 }
 
-/* Add Small Button */
+/* Smaller green add button */
 .button--add-small {
   background-color: #1fa74f;
   color: white;
@@ -54,7 +55,7 @@
   transform: scale(1.02);
 }
 
-/* Add mylist Button */
+/* Positioned button for adding to "My List" */
 .button--mylist {
   position: absolute;
   top: 0.5rem;
@@ -75,6 +76,7 @@
   transform: scale(1);
 }
 
+/* Positioned button for removing from "My List" */
 .button--mylist-remove {
   position: absolute;
   top: 0.5rem;
@@ -95,7 +97,7 @@
   transform: scale(1);
 }
 
-/* Remove Small Button */
+/* Smaller red remove button */
 .button--remove-small {
   background-color: #cc0000;
   color: white;

@@ -1,3 +1,7 @@
+// ----- COMPONENT PURPOSE ----->
+// This component is used to create and edit media collections. It allows searching for media items using the TMDB API,
+// adding them to a collection, and saving the collection to Firestore.
+
 import { useEffect, useState } from 'react';
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
@@ -6,6 +10,8 @@ import Button from '../Button/Button';
 import styles from './AdminForm.module.css';
 
 function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
+  // ----- STATE MANAGEMENT ----->
+  // Various states for form inputs, search results, messages, and selected media items.
   const [collectionTitle, setCollectionTitle] = useState('');
   const [mediaItems, setMediaItems] = useState([]);
   const [messageSuccess, setMessageSuccess] = useState(null);
@@ -15,6 +21,8 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
   const [searchType, setSearchType] = useState('movie');
   const [posterOrientation, setPosterOrientation] = useState('horizontal');
 
+  // ----- INITIALIZE FORM WITH SELECTED COLLECTION ----->
+  // When a collection is selected for editing, populate the form with its existing values.
   useEffect(() => {
     if (selectedCollection) {
       setCollectionTitle(selectedCollection.title || '');
@@ -25,6 +33,8 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
     }
   }, [selectedCollection]);
 
+  // ----- SEARCH TMDB API ----->
+  // Calls the TMDB API to search for media items based on user input and updates the search results state.
   const handleSearchTMDB = async () => {
     try {
       const data = await searchMedia(searchQuery, searchType);
@@ -34,6 +44,8 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
     }
   };
 
+  // ----- ADD MEDIA ITEM TO COLLECTION ----->
+  // Adds the selected media item to the current collection list using appropriate image URL based on orientation.
   const handleAddMedia = (media) => {
     const imageUrl =
       posterOrientation === 'horizontal'
@@ -48,10 +60,14 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
     setMediaItems((prev) => [...prev, newItem]);
   };
 
+  // ----- REMOVE MEDIA ITEM FROM COLLECTION ----->
+  // Filters out the media item with the given ID from the current collection list.
   const handleRemoveItem = (id) => {
     setMediaItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // ----- SUBMIT COLLECTION TO FIRESTORE ----->
+  // Validates input, then either updates an existing collection or creates a new one in Firestore.
   const handleSubmitCollection = async (e) => {
     e.preventDefault();
     if (!collectionTitle || mediaItems.length === 0) {
@@ -79,12 +95,14 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
       setCollectionTitle('');
       setMediaItems([]);
       setSearchQuery('');
-      onSave(); // Refresh collection list
+      onSave();
     } catch (error) {
       setMessageError('Failed to save collection: ' + error.message);
     }
   };
 
+  // ----- COMPONENT RENDERING ----->
+  // Renders the form UI, including input fields, search, preview, and error/success messages.
   return (
     <form className={styles['admin-form']} onSubmit={handleSubmitCollection}>
       <h2 className={styles['admin-form__heading']}>

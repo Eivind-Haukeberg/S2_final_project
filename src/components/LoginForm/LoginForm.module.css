@@ -1,3 +1,4 @@
+/* Container for the login form */
 .login-form {
   padding: 2rem;
   max-width: 400px;
@@ -10,12 +11,14 @@
   border-radius: 8px;
 }
 
+/* Title styling */
 .login-form__title {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
 }
 
+/* Input field styling */
 .login-form__input {
   padding: 0.6rem;
   border: 1px solid var(--secondary-dark);
@@ -25,13 +28,14 @@
   font-size: 1rem;
 }
 
+/* Error message styling */
 .login-form__error-message {
   color: red;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* === Responsive === */
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .login-form {
     padding: 1.5rem 1rem;

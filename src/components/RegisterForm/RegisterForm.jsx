@@ -1,3 +1,7 @@
+// ----- COMPONENT PURPOSE ----->
+// This component renders a registration form that allows users to sign up using Firebase Authentication.
+// It collects user data, validates it, creates a new user, and stores the user's information in Firestore.
+
 import { useState } from 'react';
 import { auth, db } from '../../services/firebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -6,6 +10,8 @@ import styles from './RegisterForm.module.css';
 import Button from '../Button/Button';
 
 function RegisterForm() {
+  // ----- STATE MANAGEMENT ----->
+  // Manages form input values, error messages, and success feedback.
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -15,10 +21,15 @@ function RegisterForm() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
+  // ----- HANDLE INPUT CHANGES ----->
+  // Updates the form state when the user types into any of the input fields.
   const handleInput = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // ----- HANDLE FORM SUBMISSION ----->
+  // Validates input, creates a user in Firebase Auth, and stores their info in Firestore.
+  // Displays error messages for invalid input or registration failures.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -53,6 +64,8 @@ function RegisterForm() {
     }
   };
 
+  // ----- COMPONENT RENDERING ----->
+  // Renders the registration form, input fields, submit button, and displays error/success messages.
   return (
     <form className={styles['register-form']} onSubmit={handleSubmit}>
       <h2 className={styles['register-form__title']}>Register</h2>

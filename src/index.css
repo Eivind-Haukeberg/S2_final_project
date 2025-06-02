@@ -1,3 +1,4 @@
+/* Background and base text color */
 body {
   background: linear-gradient(
     to right,
@@ -7,9 +8,12 @@ body {
   color: var(--primary-sand);
 }
 
+/* Info section spacing on My Page */
 .my-page__info {
   margin-left: 2rem;
 }
+
+/* Page title spacing */
 .my-page__title {
   margin: 2rem;
 }
@@ -22,7 +26,7 @@ body {
   margin: 2rem;
 }
 
-/* === Responsive Tweaks === */
+/* Responsive adjustments for title and info sections */
 @media (max-width: 768px) {
   .my-page__info,
   .my-page__title,

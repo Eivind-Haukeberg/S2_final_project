@@ -1,11 +1,16 @@
+/* Main navigation bar styling */
 .navigation-bar {
   width: 100%;
   background-color: var(--primary-dark);
   color: var(--font-on-dark);
   border-bottom: 2px solid var(--primary-orange);
   font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensures it's above other content */
 }
 
+/* Container layout for nav content */
 .navigation-bar__container {
   display: flex;
   align-items: center;
@@ -15,22 +20,25 @@
   position: relative;
 }
 
+/* Logo container */
 .navigation-bar__logo {
   display: flex;
   align-items: center;
 }
 
+/* Logo image sizing */
 .navigation-bar__logo-image {
   height: 50px;
   width: auto;
 }
 
-/* Nav links (desktop) */
+/* Navigation links (desktop layout) */
 .navigation-bar__links {
   display: flex;
   gap: 2rem;
 }
 
+/* Individual link styling */
 .navigation-bar__link {
   color: var(--font-on-dark);
   text-decoration: none;
@@ -41,7 +49,7 @@
   text-decoration: underline;
 }
 
-/* Burger button (hidden by default) */
+/* Burger menu button (hidden on desktop) */
 .navigation-bar__burger {
   display: none;
   font-size: 2rem;
@@ -51,12 +59,13 @@
   cursor: pointer;
 }
 
-/* Responsive styles */
+/* Responsive layout for mobile screens */
 @media (max-width: 768px) {
   .navigation-bar__burger {
     display: block;
   }
 
+  /* Nav links dropdown menu (mobile) */
   .navigation-bar__links {
     display: none;
     position: absolute;
@@ -71,10 +80,12 @@
     z-index: 10;
   }
 
+  /* Show menu when open */
   .navigation-bar__links--open {
     display: flex;
   }
 
+  /* Mobile link alignment */
   .navigation-bar__link {
     font-size: 1.1rem;
     text-align: right;
