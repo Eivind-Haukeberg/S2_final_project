@@ -41,12 +41,20 @@ function MyListGrid() {
         {myList.map((item, index) => (
           <div key={index} className={styles['my-list-grid__card']}>
             <div className={styles['my-list-grid__image-wrapper']}>
-              <img
-                src={item.image}
-                alt={item.title}
-                className={styles['my-list-grid__image']}
-              />
-              <div className={styles['my-list-grid__title']}>{item.title}</div>
+              <a
+                href={`https://www.themoviedb.org/${item.type}/${item.id}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                className={styles['my-list-grid__link']}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className={styles['my-list-grid__image']}
+                />
+                <div className={styles['my-list-grid__title']}>
+                  {item.title}
+                </div>
+              </a>
               <Button
                 type='button'
                 variant='mylist-remove'
