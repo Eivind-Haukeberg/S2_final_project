@@ -11,9 +11,10 @@ This project was developed as the final assignment for the **FFU1200 Frontend De
 
 👉 [View it on Netlify](https://s2-final-project.netlify.app/)
 
-## 🎨 **Figma Prototype**
+## 🎨 **Figma**
 
 👉 [View the Figma Prototype](https://www.figma.com/your-prototype-link)
+👉 [View the Figma Logo](https://www.figma.com/your-prototype-link)
 
 ## 💻 **Tech Used**
 
