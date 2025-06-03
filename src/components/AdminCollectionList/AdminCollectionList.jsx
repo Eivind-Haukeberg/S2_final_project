@@ -17,6 +17,7 @@ function AdminCollectionList({ onEdit }) {
   // ----- STATE MANAGEMENT ----->
   // This hook initializes local state to store the fetched list of collections from Firestore.
   const [collections, setCollections] = useState([]);
+  const [collectionToDelete, setCollectionToDelete] = useState(null);
 
   // ----- FETCH COLLECTIONS FROM FIRESTORE ----->
   // This asynchronous function retrieves documents from the 'collections' Firestore collection,
@@ -44,13 +45,18 @@ function AdminCollectionList({ onEdit }) {
   // ----- HANDLE DELETE ----->
   // This function prompts the user for confirmation before deleting a specific collection document
   // from Firestore. After deletion, it refreshes the list of collections.
-  const handleDelete = async (id) => {
-    const confirm = window.confirm(
-      'Are you sure you want to delete this collection?'
-    );
-    if (!confirm) return;
-    await deleteDoc(doc(db, 'collections', id));
+  const handleDelete = (id) => {
+    setCollectionToDelete(id);
+  };
+
+  const confirmDelete = async () => {
+    await deleteDoc(doc(db, 'collections', collectionToDelete));
+    setCollectionToDelete(null);
     fetchCollections();
+  };
+
+  const cancelDelete = () => {
+    setCollectionToDelete(null);
   };
 
   // ----- INITIAL DATA FETCHING ----->
@@ -124,6 +130,21 @@ function AdminCollectionList({ onEdit }) {
           ))}
         </tbody>
       </table>
+      {collectionToDelete && (
+        <div className={styles['admin-collection-list__modal']}>
+          <div className={styles['admin-collection-list__modal-content']}>
+            <p>Are you sure you want to delete this collection?</p>
+            <div className={styles['admin-collection-list__modal-actions']}>
+              <Button variant='delete' onClick={confirmDelete}>
+                Yes, delete
+              </Button>
+              <Button variant='primary' onClick={cancelDelete}>
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
