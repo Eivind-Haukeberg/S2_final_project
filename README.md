@@ -1,7 +1,3 @@
-# OneApp - Final Project
-
-OneApp is a streaming platform that allows users to watch movie and TV show collections, as well as add content to their own list.
-
 # S2_Final_Project – OneApp
 
 OneApp is a streaming platform that allows users to watch movie and TV show collections, as well as add content to their own list.
@@ -13,8 +9,7 @@ This project was developed as the final assignment for the **FFU1200 Frontend De
 
 ## 🎨 **Figma**
 
-👉 [View the Figma Prototype](https://www.figma.com/your-prototype-link)
-👉 [View the Figma Logo](https://www.figma.com/your-prototype-link)
+👉 [View the Figma](https://www.figma.com/design/8WQSTxmoGdo412pfOrVpXB/OneApp?node-id=29-2&p=f&t=tqTzJIHP1hUOKKOu-0)
 
 ## 💻 **Tech Used**
 

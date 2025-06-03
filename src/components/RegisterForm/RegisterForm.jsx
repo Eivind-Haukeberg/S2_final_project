@@ -67,7 +67,10 @@ function RegisterForm() {
   // ----- COMPONENT RENDERING ----->
   // Renders the registration form, input fields, submit button, and displays error/success messages.
   return (
-    <form className={styles['register-form']} onSubmit={handleSubmit}>
+    <form
+      className={styles['register-form']}
+      onSubmit={handleSubmit}
+      noValidate>
       <h2 className={styles['register-form__title']}>Register</h2>
 
       <input

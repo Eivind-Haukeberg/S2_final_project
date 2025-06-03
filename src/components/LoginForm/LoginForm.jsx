@@ -42,7 +42,7 @@ function LoginForm() {
   // ----- COMPONENT RENDERING ----->
   // Renders the login form, including input fields, submit button, and error messages (if any).
   return (
-    <form className={styles['login-form']} onSubmit={handleSubmit}>
+    <form className={styles['login-form']} onSubmit={handleSubmit} noValidate>
       <h2 className={styles['login-form__title']}>Login</h2>
 
       <input

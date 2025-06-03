@@ -150,17 +150,28 @@ function AdminForm({ selectedCollection, setSelectedCollection, onSave }) {
       </div>
 
       <ul className={styles['admin-form__search-results']}>
-        {searchResults.map((media) => (
-          <li key={media.id} className={styles['admin-form__search-result']}>
-            {media.title || media.name}
-            <Button
-              type='button'
-              variant='add-small'
-              onClick={() => handleAddMedia(media)}>
-              Add
-            </Button>
-          </li>
-        ))}
+        {searchResults.map((media) => {
+          const title = media.title || media.name;
+          const year = (media.release_date || media.first_air_date || '').slice(
+            0,
+            4
+          );
+          const tmdbUrl = `https://www.themoviedb.org/${searchType}/${media.id}`;
+
+          return (
+            <li key={media.id} className={styles['admin-form__search-result']}>
+              <a href={tmdbUrl} target='_blank' rel='noopener noreferrer'>
+                {title} | {year}
+              </a>
+              <Button
+                type='button'
+                variant='add-small'
+                onClick={() => handleAddMedia(media)}>
+                Add
+              </Button>
+            </li>
+          );
+        })}
       </ul>
 
       {mediaItems.length > 0 && (
