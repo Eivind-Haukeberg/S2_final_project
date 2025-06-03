@@ -21,7 +21,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<HomePage />} />
-        <Route path='/my-page' element={<MyPage />} />
         <Route
           path='/my-page'
           element={
