@@ -99,13 +99,13 @@
 
 /* Smaller red remove button */
 .button--remove-small {
-  background-color: #cc0000;
+  background-color: #fa0000;
   color: white;
   font-size: 0.8rem;
   padding: 0.3rem 0.6rem;
 }
 
 .button--remove-small:hover {
-  background-color: #a00000;
+  background-color: #600000;
   transform: scale(1.02);
 }

@@ -41,12 +41,12 @@ function CollectionRow({ title, items }) {
       <div className={styles['collection-row__media-scroll']}>
         {items.map((item, index) => (
           <div className={styles['collection-row__media-card']} key={index}>
-            <div className={styles['collection-row__image-wrapper']}>
-              <a
-                href={`https://www.themoviedb.org/${item.type}/${item.id}`}
-                target='_blank'
-                rel='noopener noreferrer'
-                className={styles['collection-row__link']}>
+            <a
+              href={`https://www.themoviedb.org/${item.type}/${item.id}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              className={styles['collection-row__link']}>
+              <div className={styles['collection-row__image-wrapper']}>
                 <img
                   src={item.image}
                   alt={item.title}
@@ -55,16 +55,20 @@ function CollectionRow({ title, items }) {
                 <div className={styles['collection-row__media-title']}>
                   {item.title}
                 </div>
-              </a>
+              </div>
+            </a>
 
-              <Button
-                type='button'
-                variant='mylist'
-                onClick={() => handleAdd(item)}
-                className='button--mylist'>
-                +
-              </Button>
-            </div>
+            <Button
+              type='button'
+              variant='mylist'
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent navigation
+                e.preventDefault(); // Prevent link behavior in case it's inside <a>
+                handleAdd(item);
+              }}
+              className='button--mylist'>
+              +
+            </Button>
 
             {feedback[item.title] && (
               <p className={styles['collection-row__feedback-message']}>

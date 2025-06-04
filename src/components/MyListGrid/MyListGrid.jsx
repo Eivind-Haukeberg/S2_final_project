@@ -54,12 +54,12 @@ function MyListGrid() {
       <div className={styles['my-list-grid__items']}>
         {myList.map((item, index) => (
           <div key={index} className={styles['my-list-grid__card']}>
-            <div className={styles['my-list-grid__image-wrapper']}>
-              <a
-                href={`https://www.themoviedb.org/${item.type}/${item.id}`}
-                target='_blank'
-                rel='noopener noreferrer'
-                className={styles['my-list-grid__link']}>
+            <a
+              href={`https://www.themoviedb.org/${item.type}/${item.id}`}
+              target='_blank'
+              rel='noopener noreferrer'
+              className={styles['my-list-grid__link']}>
+              <div className={styles['my-list-grid__image-wrapper']}>
                 <img
                   src={item.image}
                   alt={item.title}
@@ -68,15 +68,20 @@ function MyListGrid() {
                 <div className={styles['my-list-grid__title']}>
                   {item.title}
                 </div>
-              </a>
-              <Button
-                type='button'
-                variant='mylist-remove'
-                onClick={() => handleRemove(item)}
-                className='button--mylist-remove'>
-                x
-              </Button>
-            </div>
+              </div>
+            </a>
+
+            <Button
+              type='button'
+              variant='mylist-remove'
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent navigation
+                e.preventDefault(); // Ensure link is not triggered
+                handleRemove(item);
+              }}
+              className='button--mylist-remove'>
+              x
+            </Button>
           </div>
         ))}
       </div>
