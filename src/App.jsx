@@ -11,6 +11,7 @@ import './styles/reset.css';
 import './styles/variables.css';
 import './index.css';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import Footer from './components/Footer/Footer';
 
 function App() {
   // ----- COMPONENT RENDERING ----->
@@ -38,6 +39,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }
